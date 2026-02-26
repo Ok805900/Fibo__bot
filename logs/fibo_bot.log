@@ -1,0 +1,19 @@
+2026-02-26 15:30:05,671 - __main__ - INFO - 🚀 Initialisation du Forex Fibonacci Bot...
+2026-02-26 15:30:05,671 - __main__ - INFO - ✅ Secrets chargés
+2026-02-26 15:30:05,672 - __main__ - INFO - ✅ Client Twelve Data initialisé
+2026-02-26 15:30:05,688 - data.database - INFO - Base de données initialisée: fibo_bot.db
+2026-02-26 15:30:05,689 - __main__ - INFO - ✅ Base de données initialisée
+2026-02-26 15:30:09,833 - bot.telegram_bot - INFO - Bot Telegram configuré avec succès
+2026-02-26 15:30:09,834 - __main__ - INFO - ✅ Bot Telegram configuré
+2026-02-26 15:30:09,834 - __main__ - INFO - ✅ Handlers Telegram configurés
+2026-02-26 15:30:09,839 - scheduler.jobs - INFO - Scheduler configuré avec succès
+2026-02-26 15:30:09,839 - __main__ - INFO - ✅ Scheduler configuré
+2026-02-26 15:30:09,839 - __main__ - INFO - ✅ Bot Fibonacci initialisé avec succès!
+2026-02-26 15:30:09,839 - __main__ - INFO - 📊 Paires surveillées: EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD, USD/CAD, NZD/USD, EUR/GBP, EUR/JPY, GBP/JPY, AUD/JPY, EUR/CHF, GBP/CHF, CAD/JPY
+2026-02-26 15:30:09,840 - __main__ - INFO - 💾 Crédits API: 800/800
+2026-02-26 15:30:09,840 - __main__ - INFO - 🎯 Démarrage du bot...
+2026-02-26 15:30:09,840 - scheduler.jobs - INFO - Scheduler démarré
+2026-02-26 15:30:10,109 - __main__ - INFO - ✅ Bot Telegram démarré
+2026-02-26 15:30:10,379 - __main__ - INFO - ✅ Polling Telegram démarré
+2026-02-26 15:34:36,355 - bot.handlers - INFO - Commande /start de 6611573785
+2026-02-26 15:59:04,245 - bot.handlers - INFO - Commande /start de 6611573785

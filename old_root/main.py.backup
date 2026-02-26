@@ -13,6 +13,9 @@ Les variables d'environnement doivent être définies:
 import asyncio
 import signal
 import sys
+import threading
+import os
+from flask import Flask
 from config.secrets import Secrets
 from config.settings import PAIRS
 from data.twelvedata_client import TwelveDataClient
@@ -24,6 +27,35 @@ from utils.logger import setup_logger
 from telegram.ext import CommandHandler, MessageHandler, filters
 
 logger = setup_logger(__name__)
+
+# 🌐 Serveur web pour UptimeRobot (ping toutes les 5 min)
+web_app = Flask(__name__)
+
+@web_app.route('/')
+def home():
+    """Page d'accueil - vérifie que le service est actif"""
+    return {
+        "status": "alive",
+        "bot": "FiboBot",
+        "timestamp": asyncio.get_event_loop().time() if asyncio.get_event_loop().is_running() else "N/A"
+    }
+
+@web_app.route('/health')
+def health():
+    """Endpoint health check pour UptimeRobot"""
+    return {
+        "status": "healthy",
+        "service": "fibo-bot",
+        "uptime": "running"
+    }, 200
+
+
+def run_web_server():
+    """Démarrer le serveur web dans un thread séparé"""
+    port = int(os.environ.get("PORT", 10000))
+    logger.info(f"🌐 Démarrage du serveur web sur le port {port}")
+    # host='0.0.0.0' important pour Render !
+    web_app.run(host='0.0.0.0', port=port, threaded=True)
 
 
 class FiboBotApplication:
@@ -76,7 +108,6 @@ class FiboBotApplication:
             logger.info(f"✅ Handlers Telegram configurés")
 
             # Pour les tests, utiliser un chat_id par défaut
-            # En production, ce serait configuré différemment
             self.chat_id = 0  # À remplacer par l'ID du chat réel
 
             # Initialiser le scheduler
@@ -147,6 +178,12 @@ class FiboBotApplication:
 
 async def main():
     """Fonction principale"""
+    
+    # 🌐 Démarrer le serveur web dans un thread séparé (pour UptimeRobot)
+    web_thread = threading.Thread(target=run_web_server, daemon=True)
+    web_thread.start()
+    logger.info("🌐 Serveur web démarré (thread séparé)")
+    
     app = FiboBotApplication()
 
     def signal_handler(sig, frame):
